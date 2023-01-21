@@ -21,17 +21,27 @@ const Header = () => {
           <NavLink href="/kids">Kids</NavLink>
           <NavLink href="/collections">Collections</NavLink>
         </Nav>
+        <EndNav />
       </MainHeader>
     </header>
   );
 };
 
 const MainHeader = styled.div`
-  padding: 0 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 21px 32px 23px 32px;
   border-bottom: 1px solid ${COLORS.gray[300]};
 `;
 
-const Nav = styled.nav``;
+const Nav = styled.nav`
+  display: flex;
+  gap: 48px;
+`;
+const EndNav = styled(Logo)`
+  visibility: hidden;
+`;
 
 const NavLink = styled.a`
   font-size: 1.125rem;
