@@ -29,21 +29,40 @@ const ShoeCard = ({
     ? 'on-sale'
     : isNewShoe(releaseDate)
       ? 'new-release'
-      : 'default'
+      : 'default';
+
+  let priceTextDecoration;
+  let salePriceComponent;
+  let imageSpecialTag;
+
+  switch (variant) {
+    case 'on-sale':
+      priceTextDecoration = "line-through";
+      salePriceComponent = <SalePrice>{formatPrice(salePrice)}</SalePrice>;
+      imageSpecialTag = <ImageTag style={{'--imageTagColor': COLORS.primary}}>Sale</ImageTag>;
+    break;
+    case 'new-release':
+      imageSpecialTag = <ImageTag style={{'--imageTagColor': COLORS.secondary}}>Just released!</ImageTag>;
+    break;
+    default:
+      // nothing currently
+  }  
 
   return (
     <Link href={`/shoe/${slug}`}>
       <Wrapper>
         <ImageWrapper>
           <Image alt="" src={imageSrc} />
+          {imageSpecialTag}
         </ImageWrapper>
         <Spacer size={12} />
         <Row>
           <Name>{name}</Name>
-          <Price>{formatPrice(price)}</Price>
+          <Price style={{ '--priceTextDecoration': priceTextDecoration}}>{formatPrice(price)}</Price>
         </Row>
         <Row>
           <ColorInfo>{pluralize('Color', numOfColors)}</ColorInfo>
+          {salePriceComponent}
         </Row>
       </Wrapper>
     </Link>
@@ -71,6 +90,9 @@ const Image = styled.img`
 
 const Row = styled.div`
   font-size: 1rem;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 `;
 
 const Name = styled.h3`
@@ -78,7 +100,9 @@ const Name = styled.h3`
   color: ${COLORS.gray[900]};
 `;
 
-const Price = styled.span``;
+const Price = styled.span`
+  text-decoration: var(--priceTextDecoration);
+`;
 
 const ColorInfo = styled.p`
   color: ${COLORS.gray[700]};
@@ -87,6 +111,16 @@ const ColorInfo = styled.p`
 const SalePrice = styled.span`
   font-weight: ${WEIGHTS.medium};
   color: ${COLORS.primary};
+`;
+
+const ImageTag = styled.span`
+  background: var(--imageTagColor);
+  color: ${COLORS.white};
+  font-weight: ${WEIGHTS.bold};
+  padding: 7px 9px 9px 11px;
+  position: absolute;
+  top: 12px;
+  right: -4px;
 `;
 
 export default ShoeCard;
