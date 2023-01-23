@@ -32,7 +32,9 @@ const Select = ({ label, value, children, ...delegated }) => {
   );
 };
 
-const Wrapper = styled.label``;
+const Wrapper = styled.label`
+  
+`;
 
 const VisibleLabel = styled.span`
   color: ${COLORS.gray[700]};
@@ -41,6 +43,7 @@ const VisibleLabel = styled.span`
 
 const SelectWrapper = styled.div`
   position: relative;
+  display: inline-block;
 `;
 
 const NativeSelect = styled.select`
