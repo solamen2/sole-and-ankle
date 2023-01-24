@@ -32,12 +32,14 @@ const ShoeCard = ({
       : 'default';
 
   let priceTextDecoration;
+  let priceColor;
   let salePriceComponent;
   let imageSpecialTag;
 
   switch (variant) {
     case 'on-sale':
       priceTextDecoration = "line-through";
+      priceColor = COLORS.gray[700];
       salePriceComponent = <SalePrice>{formatPrice(salePrice)}</SalePrice>;
       imageSpecialTag = <ImageTag style={{'--imageTagColor': COLORS.primary}}>Sale</ImageTag>;
     break;
@@ -58,7 +60,7 @@ const ShoeCard = ({
         <Spacer size={12} />
         <Row>
           <Name>{name}</Name>
-          <Price style={{ '--priceTextDecoration': priceTextDecoration}}>{formatPrice(price)}</Price>
+          <Price style={{ '--price-text-decoration': priceTextDecoration, '--price-color': priceColor }}>{formatPrice(price)}</Price>
         </Row>
         <Row>
           <ColorInfo>{pluralize('Color', numOfColors)}</ColorInfo>
@@ -72,7 +74,7 @@ const ShoeCard = ({
 const Link = styled.a`
   text-decoration: none;
   color: inherit;
-  flex: 1 1 344px;
+  flex: 1 1 275px;
 `;
 
 const Wrapper = styled.article`
@@ -85,7 +87,7 @@ const ImageWrapper = styled.div`
 
 const Image = styled.img`
   width: 100%;
-  height: auto;
+  border-radius: 16px 16px 4px 4px;
 `;
 
 const Row = styled.div`
@@ -101,7 +103,8 @@ const Name = styled.h3`
 `;
 
 const Price = styled.span`
-  text-decoration: var(--priceTextDecoration);
+  text-decoration: var(--price-text-decoration);
+  color: var(--price-color);
 `;
 
 const ColorInfo = styled.p`
@@ -121,6 +124,8 @@ const ImageTag = styled.span`
   position: absolute;
   top: 12px;
   right: -4px;
+  font-size: ${14 / 16}rem;
+  border-radius: 2px;
 `;
 
 export default ShoeCard;
